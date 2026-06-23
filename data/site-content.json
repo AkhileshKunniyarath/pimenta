@@ -1078,6 +1078,23 @@
       "a": "All ages welcome on Tailor-Made and Whole Property stays. Multi-night cooking residencies work best for ages 14 and up."
     }
   ],
+  "TODAY_PANEL": {
+    "date": "Tuesday, 14 March",
+    "weather": "28°C · light rain expected by 4pm",
+    "growing": [
+      "Pepper, harvesting",
+      "Mootil pazham, fruiting",
+      "Vanilla, flowering",
+      "Turmeric, dormant"
+    ],
+    "cooking": [
+      "Avial",
+      "Erissery (roasted-coconut style)",
+      "Inji puli",
+      "Pal payasam"
+    ],
+    "fromFarm": "9 of 11 ingredients, this morning"
+  },
   "TERMS": {
     "title": "Terms and Conditions",
     "lastUpdated": "June 23, 2026",
@@ -1113,22 +1130,5 @@
         "body": "The contract, including these terms and conditions, is governed by the laws of India."
       }
     ]
-  },
-  "TODAY_PANEL": {
-    "date": "Tuesday, 14 March",
-    "weather": "28°C · light rain expected by 4pm",
-    "growing": [
-      "Pepper, harvesting",
-      "Mootil pazham, fruiting",
-      "Vanilla, flowering",
-      "Turmeric, dormant"
-    ],
-    "cooking": [
-      "Avial",
-      "Erissery (roasted-coconut style)",
-      "Inji puli",
-      "Pal payasam"
-    ],
-    "fromFarm": "9 of 11 ingredients, this morning"
   }
 }
