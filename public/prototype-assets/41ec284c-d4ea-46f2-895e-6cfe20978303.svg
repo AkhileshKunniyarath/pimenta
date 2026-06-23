@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <rect width="24" height="24" fill="#2F3E2A"></rect>
+      <line x1="0" y1="0" x2="0" y2="24" stroke="#F3EDE2" stroke-opacity="0.08" stroke-width="1"></line>
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="url(#p)"></rect>
+  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#F3EDE2" stroke-opacity="0.3" stroke-width="1"></rect>
+  <circle cx="400" cy="340" r="120" fill="#F3EDE2" fill-opacity="0.92"></circle>
+  <text x="400" y="370" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="140" fill="#2F3E2A">P</text>
+  <text x="400" y="540" text-anchor="middle" font-family="monospace" font-size="22" letter-spacing="6" fill="#F3EDE2">CHURCH</text>
+  <text x="400" y="580" text-anchor="middle" font-family="monospace" font-size="13" letter-spacing="3" fill="#F3EDE2" fill-opacity="0.6">THE PIMENTA · KERALA</text>
+</svg>

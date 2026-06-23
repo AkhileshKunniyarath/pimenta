@@ -1,0 +1,63 @@
+[
+  {
+    "packageId": "odyssey",
+    "packageSlug": "kerala-culinary-odyssey",
+    "packageTitle": "Kerala Culinary Odyssey",
+    "checkin": "2026-06-23",
+    "checkout": "2026-06-24",
+    "guests": 2,
+    "name": "test",
+    "email": "test@gmail.com",
+    "phone": "1234567890",
+    "notes": "testing",
+    "diet": [
+      "None",
+      "Nut-free"
+    ],
+    "indicativeTotalInr": 10000,
+    "status": "approved",
+    "source": "website",
+    "createdAt": "2026-06-23T09:12:58.082Z",
+    "_id": "local-1782205978088"
+  },
+  {
+    "packageId": "workshop",
+    "packageSlug": "hands-on-cooking-day",
+    "packageTitle": "Hands-On Cooking & Spice Farm Day",
+    "checkin": "2026-06-24",
+    "checkout": "2026-06-26",
+    "guests": 3,
+    "name": "test 1",
+    "email": "test@gmail.ccom",
+    "phone": "0987654321",
+    "notes": "testng",
+    "diet": [
+      "Gluten-free"
+    ],
+    "indicativeTotalInr": 22500,
+    "status": "pending",
+    "source": "website",
+    "createdAt": "2026-06-23T09:14:33.019Z",
+    "_id": "local-1782206073024"
+  },
+  {
+    "packageId": "workshop",
+    "packageSlug": "hands-on-cooking-day",
+    "packageTitle": "Hands-On Cooking & Spice Farm Day",
+    "checkin": "2026-06-24",
+    "checkout": "2026-06-26",
+    "guests": 3,
+    "name": "test 1",
+    "email": "test@gmail.ccom",
+    "phone": "0987654321",
+    "notes": "testng",
+    "diet": [
+      "Gluten-free"
+    ],
+    "indicativeTotalInr": 22500,
+    "status": "pending",
+    "source": "website",
+    "createdAt": "2026-06-23T09:14:37.814Z",
+    "_id": "local-1782206077815"
+  }
+]
