@@ -79,6 +79,10 @@
       "label": "Home"
     },
     {
+      "key": "about",
+      "label": "About Us"
+    },
+    {
       "key": "stay",
       "label": "Stay"
     },
@@ -1093,6 +1097,44 @@
       "Pal payasam"
     ],
     "fromFarm": "9 of 11 ingredients, this morning"
+  },
+  "ABOUT": {
+    "eyebrow": "About Us",
+    "title": "Rediscovering responsible tourism and culinary retreats with our story",
+    "intro": "Welcome to Haritha Farms, a sanctuary of sustainable tourism and culinary retreats in the heart of Kerala's midlands.",
+    "sections": [
+      {
+        "title": "Haritha Farms",
+        "body": "Established in 1962 by the Mathew family, Haritha Farms began as a rubber plantation and grew into a living enclave for green living. The family turned away from pesticides and chemical fertilizers, choosing a forest garden rich with crops and medicinal plants instead."
+      },
+      {
+        "title": "Pioneers of eco-agri-tourism",
+        "body": "In 1992, the Mathew family opened their doors to day visitors and became early pioneers of eco-agri-tourism in southern India. Over time, the stay expanded to include The Pimenta, a cluster of independent bungalows named after the Portuguese word for black pepper."
+      },
+      {
+        "title": "The Pimenta experience",
+        "body": "Set in the foothills of the Western Ghats, The Pimenta offers four bungalows facing a verdant tropical garden, a communal dining area, and a kitchen where guests can get an inside look at authentic Indian cooking."
+      },
+      {
+        "title": "Comfortable and intimate",
+        "body": "Guests can slow down on private verandas or gather in the bohemian-style shared spaces. We keep the setting intimate, comfortable, and rooted in the rhythms of a real Kerala homestead, with practical comforts including Wi-Fi across the property."
+      },
+      {
+        "title": "Culinary and cultural immersion",
+        "body": "Jacob Mathew has hosted and shaped experiences here for over 25 years. Alongside healthy South Indian vegetarian cuisine and hands-on cookery courses, stays can include tea plantations, local businesses, boat trips on the Muvattupuzha River, markets, and places of worship across Kerala's cultural landscape."
+      }
+    ],
+    "teamTitle": "The people behind the stay",
+    "teamBody": "Our team includes Jacob Mathew, Mrs. Mathew, Madhu Shankar, Ranjeet Mathew Jacob, and Ancy P. Anto in the back office. Together they create the feeling of being welcomed by a Keralite family rather than processed by a hotel.",
+    "teamMembers": [
+      "Jacob Mathew",
+      "Mrs. Mathew",
+      "Madhu Shankar",
+      "Ranjeet Mathew Jacob",
+      "Ancy P. Anto"
+    ],
+    "ctaTitle": "Step off the tourist trail.",
+    "ctaBody": "If you seek a thoughtful blend of comfort, sustainability, culture, and cuisine, The Pimenta at Haritha Farms is ready to help you plan a more personal Kerala stay."
   },
   "TERMS": {
     "title": "Terms and Conditions",

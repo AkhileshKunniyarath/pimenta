@@ -154,6 +154,77 @@ function extractDefaultSiteContent(source) {
 
 const defaultSiteContent = extractDefaultSiteContent(prototypeSources[0]);
 
+defaultSiteContent.ABOUT = {
+  eyebrow: "About Us",
+  title: "Rediscovering responsible tourism and culinary retreats with our story",
+  intro:
+    "Welcome to Haritha Farms, a sanctuary of sustainable tourism and culinary retreats in the heart of Kerala's midlands.",
+  sections: [
+    {
+      title: "Haritha Farms",
+      body:
+        "Established in 1962 by the Mathew family, Haritha Farms began as a rubber plantation and grew into a living enclave for green living. The family turned away from pesticides and chemical fertilizers, choosing a forest garden rich with crops and medicinal plants instead.",
+    },
+    {
+      title: "Pioneers of eco-agri-tourism",
+      body:
+        "In 1992, the Mathew family opened their doors to day visitors and became early pioneers of eco-agri-tourism in southern India. Over time, the stay expanded to include The Pimenta, a cluster of independent bungalows named after the Portuguese word for black pepper.",
+    },
+    {
+      title: "The Pimenta experience",
+      body:
+        "Set in the foothills of the Western Ghats, The Pimenta offers four bungalows facing a verdant tropical garden, a communal dining area, and a kitchen where guests can get an inside look at authentic Indian cooking.",
+    },
+    {
+      title: "Comfortable and intimate",
+      body:
+        "Guests can slow down on private verandas or gather in the bohemian-style shared spaces. We keep the setting intimate, comfortable, and rooted in the rhythms of a real Kerala homestead, with practical comforts including Wi-Fi across the property.",
+    },
+    {
+      title: "Culinary and cultural immersion",
+      body:
+        "Jacob Mathew has hosted and shaped experiences here for over 25 years. Alongside healthy South Indian vegetarian cuisine and hands-on cookery courses, stays can include tea plantations, local businesses, boat trips on the Muvattupuzha River, markets, and places of worship across Kerala's cultural landscape.",
+    },
+  ],
+  teamTitle: "The people behind the stay",
+  teamBody:
+    "Our team includes Jacob Mathew, Mrs. Mathew, Madhu Shankar, Ranjeet Mathew Jacob, and Ancy P. Anto in the back office. Together they create the feeling of being welcomed by a Keralite family rather than processed by a hotel.",
+  teamMembers: [
+    "Jacob Mathew",
+    "Mrs. Mathew",
+    "Madhu Shankar",
+    "Ranjeet Mathew Jacob",
+    "Ancy P. Anto",
+  ],
+  ctaTitle: "Step off the tourist trail.",
+  ctaBody:
+    "If you seek a thoughtful blend of comfort, sustainability, culture, and cuisine, The Pimenta at Haritha Farms is ready to help you plan a more personal Kerala stay.",
+};
+
+const navDefaults = [
+  { key: "home", label: "Home" },
+  { key: "about", label: "About Us" },
+  { key: "stay", label: "Stay" },
+  { key: "experiences", label: "Experiences" },
+  { key: "farm", label: "The Farm" },
+  { key: "journal", label: "Journal" },
+  { key: "plan", label: "Plan Your Visit" },
+];
+
+const currentNav = Array.isArray(defaultSiteContent.NAV)
+  ? defaultSiteContent.NAV
+  : [];
+const navMap = new Map(
+  currentNav
+    .filter((item) => item && typeof item.key === "string")
+    .map((item) => [item.key, item]),
+);
+
+defaultSiteContent.NAV = navDefaults.map((item) => ({
+  ...item,
+  ...(navMap.get(item.key) || {}),
+}));
+
 defaultSiteContent.TERMS = defaultSiteContent.TERMS || {
   title: "Terms and Conditions",
   lastUpdated: "June 23, 2026",
@@ -219,6 +290,27 @@ const scopedPrototypeSources = prototypeSources.slice(1).map(
 const contentBootstrapSource = `{
 const SITE_CONTENT = content || DEFAULT_SITE_CONTENT;
 const CURRENCY = SITE_CONTENT.CURRENCY || {};
+const DEFAULT_NAV = ${JSON.stringify(navDefaults)};
+
+function normalizeNav(items) {
+  const source = Array.isArray(items) ? items.filter(Boolean) : [];
+  const keyed = new Map(
+    source
+      .filter((item) => item && typeof item.key === "string")
+      .map((item) => [item.key, item]),
+  );
+
+  const merged = DEFAULT_NAV.map((item) => ({
+    ...item,
+    ...(keyed.get(item.key) || {}),
+  }));
+
+  const extras = source.filter(
+    (item) => item && !DEFAULT_NAV.some((defaultItem) => defaultItem.key === item.key),
+  );
+
+  return [...merged, ...extras];
+}
 
 function formatPrice(inr, currency) {
   if (inr == null) return null;
@@ -233,6 +325,8 @@ function formatPrice(inr, currency) {
 
 window.DATA = {
   ...SITE_CONTENT,
+  ABOUT: SITE_CONTENT.ABOUT || {},
+  NAV: normalizeNav(SITE_CONTENT.NAV),
   CURRENCY,
   formatPrice,
 };
@@ -314,6 +408,144 @@ const componentParts = [
 ];
 
 let componentSource = componentParts.join("");
+
+componentSource = componentSource.replace(
+  `window.Pages = window.Pages || {};
+window.Pages.HomePage = HomePage;
+
+}
+
+{
+// Stay page — 4 bungalows + B&B + Stay+Food + Whole Property`,
+  `window.Pages = window.Pages || {};
+window.Pages.HomePage = HomePage;
+
+}
+
+{
+// About Us — backend-driven brand story page
+
+const { Section: SectionA, Container: ContA, Eyebrow: EyebrowA, Btn: BtnA, Img: ImgA } = window.UI;
+const { ABOUT: ABOUTA, BRAND: BRANDA, IMG: IMGA } = window.DATA;
+
+function AboutPage({ onBook, setPage }) {
+  const about = ABOUTA || {};
+  const sections = about.sections || [];
+  const teamMembers = about.teamMembers || [];
+
+  return (
+    <div>
+      <SectionA style={{ padding: "60px 0 40px" }}>
+        <ContA>
+          <EyebrowA>{about.eyebrow || "About Us"}</EyebrowA>
+          <h1 className="serif" style={{ fontSize: "clamp(60px, 9vw, 132px)", lineHeight: 0.94, margin: "18px 0 20px", letterSpacing: "-0.03em", maxWidth: 980 }}>
+            {about.title || "A family-run Kerala stay rooted in land, food, and hospitality."}
+          </h1>
+          <p style={{ maxWidth: 760, margin: 0, fontSize: 18, color: "var(--ink-2)", lineHeight: 1.75 }}>
+            {about.intro || "Welcome to The Pimenta."}
+          </p>
+        </ContA>
+      </SectionA>
+
+      <SectionA style={{ padding: "20px 0 90px" }}>
+        <ContA>
+          <div style={{ display: "grid", gridTemplateColumns: "1.05fr 1fr", gap: 40, alignItems: "start" }}>
+            <div>
+              <ImgA src={IMGA.hero} alt={BRANDA?.name || "The Pimenta"} ratio="4/5" />
+            </div>
+            <div style={{ display: "grid", gap: 22 }}>
+              {sections.slice(0, 2).map((section, index) => (
+                <div key={section.title || index} style={{ borderTop: "1px solid var(--rule)", paddingTop: 18 }}>
+                  <div className="mono tracked" style={{ color: "var(--accent)", marginBottom: 10 }}>
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div className="serif" style={{ fontSize: 32, lineHeight: 1.08, letterSpacing: "-0.02em" }}>
+                    {section.title}
+                  </div>
+                  <p style={{ margin: "12px 0 0", fontSize: 15, color: "var(--ink-2)", lineHeight: 1.8 }}>
+                    {section.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </ContA>
+      </SectionA>
+
+      <SectionA style={{ background: "var(--paper-2)", padding: "110px 0" }}>
+        <ContA>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+            {sections.slice(2).map((section, index) => (
+              <div key={section.title || index} style={{ border: "1px solid var(--rule)", padding: 28, background: "var(--paper)" }}>
+                <div className="serif" style={{ fontSize: 30, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
+                  {section.title}
+                </div>
+                <p style={{ margin: "14px 0 0", fontSize: 14, color: "var(--ink-2)", lineHeight: 1.75 }}>
+                  {section.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </ContA>
+      </SectionA>
+
+      <SectionA style={{ padding: "100px 0" }}>
+        <ContA>
+          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 40, alignItems: "start" }}>
+            <div>
+              <EyebrowA>{about.teamTitle || "Our Team"}</EyebrowA>
+              <h2 className="serif" style={{ fontSize: 54, lineHeight: 1, letterSpacing: "-0.025em", margin: "18px 0 24px" }}>
+                The people behind<br />
+                <span className="italic-serif">The Pimenta</span>.
+              </h2>
+              <p style={{ margin: 0, fontSize: 16, color: "var(--ink-2)", lineHeight: 1.8, maxWidth: 640 }}>
+                {about.teamBody}
+              </p>
+            </div>
+            <div style={{ border: "1px solid var(--rule)", padding: 30, background: "var(--paper-2)" }}>
+              <div className="mono tracked" style={{ color: "var(--accent)", marginBottom: 14 }}>Team</div>
+              <div style={{ display: "grid", gap: 12 }}>
+                {teamMembers.map((member) => (
+                  <div key={member} style={{ borderTop: "1px solid var(--rule)", paddingTop: 12 }}>
+                    <div className="serif" style={{ fontSize: 24, letterSpacing: "-0.01em" }}>{member}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </ContA>
+      </SectionA>
+
+      <SectionA style={{ padding: "0 0 120px" }}>
+        <ContA>
+          <div style={{ border: "1px solid var(--rule)", background: "var(--paper-2)", padding: "38px 42px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
+            <div style={{ maxWidth: 720 }}>
+              <div className="serif" style={{ fontSize: 42, lineHeight: 1.05, letterSpacing: "-0.02em" }}>
+                {about.ctaTitle || "Plan your visit."}
+              </div>
+              <p style={{ margin: "14px 0 0", fontSize: 15, color: "var(--ink-2)", lineHeight: 1.7 }}>
+                {about.ctaBody || "Get in touch to shape your stay."}
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <BtnA onClick={() => setPage("plan")} variant="ghost">Plan your visit</BtnA>
+              <BtnA onClick={onBook} variant="accent">Request to book</BtnA>
+            </div>
+          </div>
+        </ContA>
+      </SectionA>
+    </div>
+  );
+}
+
+window.Pages = window.Pages || {};
+window.Pages.AboutPage = AboutPage;
+
+}
+
+{
+// Stay page — 4 bungalows + B&B + Stay+Food + Whole Property`,
+);
 
 componentSource = componentSource.replace(
   `  const [form, setForm] = React.useState({
@@ -658,7 +890,20 @@ componentSource = componentSource.replace(
   `  const { TopNav, Footer, SitemapOverlay } = window.Nav;
   const { HomePage, StayPage, ExperiencesPage, FarmPage, JournalPage, PlanPage, BookPage, PackageDetailPage } = window.Pages;`,
   `  const { TopNav, Footer, SitemapOverlay } = window.Nav;
-  const { HomePage, StayPage, ExperiencesPage, FarmPage, JournalPage, PlanPage, TermsPage, BookPage, PackageDetailPage } = window.Pages;`,
+  const { HomePage, AboutPage, StayPage, ExperiencesPage, FarmPage, JournalPage, PlanPage, TermsPage, BookPage, PackageDetailPage } = window.Pages;`,
+);
+
+componentSource = componentSource.replace(
+  `      case "home":           return <HomePage setPage={navigateTo} onBook={onBook} heroLayout={tweaks.heroLayout} currency={currency} openPackage={openPackage} />;
+      case "stay":           return <StayPage setPage={navigateTo} onBook={onBook} currency={currency} />;`,
+  `      case "home":           return <HomePage setPage={navigateTo} onBook={onBook} heroLayout={tweaks.heroLayout} currency={currency} openPackage={openPackage} />;
+      case "about":          return <AboutPage setPage={navigateTo} onBook={onBook} />;
+      case "stay":           return <StayPage setPage={navigateTo} onBook={onBook} currency={currency} />;`,
+);
+
+componentSource = componentSource.replace(
+  `{ title: "Visit", items: [["Stay", "stay"], ["Experiences", "experiences"], ["The Farm", "farm"], ["Plan Your Visit", "plan"]] },`,
+  `{ title: "Visit", items: [["About Us", "about"], ["Stay", "stay"], ["Experiences", "experiences"], ["The Farm", "farm"], ["Plan Your Visit", "plan"]] },`,
 );
 
 componentSource = componentSource.replace(
