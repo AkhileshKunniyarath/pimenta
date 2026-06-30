@@ -5,7 +5,6 @@ import {
   createEmptyActivityGroup,
   createEmptyFaq,
   createEmptyReview,
-  createEmptyJournalPost,
   slugify,
   parseNumber,
   formatLines,
@@ -47,9 +46,6 @@ interface ContentTabProps {
   addTermsSection: () => void;
   removeTermsSection: (index: number) => void;
   updateTermsSection: (index: number, updater: (item: any) => any) => void;
-  journalPosts: any[];
-  selectedJournal: number;
-  setSelectedJournal: (index: number) => void;
   reviews: any[];
   selectedReview: number;
   setSelectedReview: (index: number) => void;
@@ -82,9 +78,6 @@ export default function ContentTab({
   addTermsSection,
   removeTermsSection,
   updateTermsSection,
-  journalPosts,
-  selectedJournal,
-  setSelectedJournal,
   reviews,
   selectedReview,
   setSelectedReview,
@@ -98,7 +91,6 @@ export default function ContentTab({
   const currentActivity = activities[selectedActivity];
   const currentFaq = faqs[selectedFaq];
   const currentTermsSection = termSections[selectedTermsSection];
-  const currentJournal = journalPosts[selectedJournal];
   const currentReview = reviews[selectedReview];
   const currentCurrencyEntry = currencyEntries[selectedCurrency];
 
@@ -110,7 +102,6 @@ export default function ContentTab({
           { id: "activities", label: "The Farm (Activities)" },
           { id: "faq", label: "FAQs" },
           { id: "terms", label: "Policies / Terms" },
-          { id: "journal", label: "Journal" },
           { id: "volunteer", label: "Volunteer" },
           { id: "reviews", label: "Reviews" },
           { id: "pricing", label: "Currencies" },
@@ -798,121 +789,7 @@ export default function ContentTab({
         </div>
       )}
 
-      {contentTab === "journal" && (
-        <SplitEditor
-          listTitle="Journal posts"
-          listItems={journalPosts}
-          selectedIndex={selectedJournal}
-          onSelect={setSelectedJournal}
-          onAdd={() => {
-            addArrayItem("JOURNAL_POSTS", createEmptyJournalPost());
-            setSelectedJournal(journalPosts.length);
-          }}
-          onRemove={() => removeArrayItem("JOURNAL_POSTS", selectedJournal)}
-          renderLabel={(item) => item.title || "Untitled post"}
-          emptyMessage="No journal posts yet."
-        >
-          {currentJournal ? (
-            <div style={{ display: "grid", gap: 16 }}>
-              <SectionHeader
-                eyebrow="Journal editor"
-                title={currentJournal.title || "Story details"}
-                body="Edit story title, type, date, image, and short excerpt."
-              />
 
-              <ImageUploadField
-                label="Story Cover Image"
-                value={currentJournal.img || ""}
-                onChange={(value) =>
-                  updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                    ...item,
-                    img: value,
-                  }))
-                }
-              />
-
-              <Grid columns={4}>
-                <Field
-                  label="Title"
-                  value={currentJournal.title || ""}
-                  onChange={(value) =>
-                    updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                      ...item,
-                      title: value,
-                    }))
-                  }
-                />
-                <Field
-                  label="ID / Slug"
-                  value={currentJournal.id || ""}
-                  onChange={(value) =>
-                    updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                      ...item,
-                      id: slugify(value, "journal"),
-                      slug: slugify(value, "journal"),
-                    }))
-                  }
-                />
-                <Field
-                  label="Kind"
-                  value={currentJournal.kind || ""}
-                  onChange={(value) =>
-                    updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                      ...item,
-                      kind: value,
-                    }))
-                  }
-                />
-                <Field
-                  label="Date"
-                  value={currentJournal.date || ""}
-                  onChange={(value) =>
-                    updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                      ...item,
-                      date: value,
-                    }))
-                  }
-                />
-                <ImageUploadField
-                  label="Image path"
-                  value={currentJournal.img || ""}
-                  onChange={(value) =>
-                    updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                      ...item,
-                      img: value,
-                    }))
-                  }
-                />
-              </Grid>
-              <Field
-                label="Excerpt"
-                value={currentJournal.excerpt || ""}
-                onChange={(value) =>
-                  updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                    ...item,
-                    excerpt: value,
-                  }))
-                }
-                multiline
-              />
-              <Field
-                label="Body (paragraphs separated by blank lines; use > for pull quotes, ### for subheadings)"
-                value={currentJournal.body || ""}
-                onChange={(value) =>
-                  updateArrayItem("JOURNAL_POSTS", selectedJournal, (item) => ({
-                    ...item,
-                    body: value,
-                  }))
-                }
-                multiline
-                rows={12}
-              />
-            </div>
-          ) : (
-            <EmptyEditor message="Select or add a journal post to edit it." />
-          )}
-        </SplitEditor>
-      )}
 
       {contentTab === "reviews" && (
         <SplitEditor

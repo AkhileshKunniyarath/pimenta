@@ -15,6 +15,7 @@ import OverviewTab from "./components/tabs/OverviewTab";
 import BusinessTab from "./components/tabs/BusinessTab";
 import PackagesTab from "./components/tabs/PackagesTab";
 import StayTab from "./components/tabs/StayTab";
+import JournalTab from "./components/tabs/JournalTab";
 import ContentTab from "./components/tabs/ContentTab";
 import BookingsTab from "./components/tabs/BookingsTab";
 
@@ -407,17 +408,24 @@ export default function AdminDashboardClient({
       icon: "🛏️",
     },
     {
+      id: "journal",
+      label: "Journal",
+      note: `${journalPosts.length} journal posts`,
+      badge: "05",
+      icon: "📖",
+    },
+    {
       id: "content",
       label: "Content",
-      note: "FAQs, reviews, media, stories",
-      badge: "05",
+      note: "FAQs, reviews, media, volunteer",
+      badge: "06",
       icon: "📝",
     },
     {
       id: "bookings",
       label: "Bookings & Enquiries",
       note: `${bookings.length} enquiries`,
-      badge: "06",
+      badge: "07",
       icon: "📅",
     },
   ];
@@ -510,6 +518,17 @@ export default function AdminDashboardClient({
             updateArrayItem={updateArrayItem}
           />
         );
+      case "journal":
+        return (
+          <JournalTab
+            journalPosts={journalPosts}
+            selectedJournal={selectedJournal}
+            setSelectedJournal={setSelectedJournal}
+            addArrayItem={addArrayItem}
+            removeArrayItem={removeArrayItem}
+            updateArrayItem={updateArrayItem}
+          />
+        );
       case "content":
         return (
           <ContentTab
@@ -533,9 +552,6 @@ export default function AdminDashboardClient({
             addTermsSection={addTermsSection}
             removeTermsSection={removeTermsSection}
             updateTermsSection={updateTermsSection}
-            journalPosts={journalPosts}
-            selectedJournal={selectedJournal}
-            setSelectedJournal={setSelectedJournal}
             reviews={reviews}
             selectedReview={selectedReview}
             setSelectedReview={setSelectedReview}
