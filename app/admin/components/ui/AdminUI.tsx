@@ -335,7 +335,7 @@ export function ImageUploadField({
           type="text"
           value={value || ""}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="/uploads/... or external URL"
+          placeholder="Garage or external image URL"
           style={{ ...inputStyle, flex: 1 }}
         />
         <label

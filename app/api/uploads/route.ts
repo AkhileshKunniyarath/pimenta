@@ -1,7 +1,7 @@
-import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
 import { adminUnauthorizedResponse, isAdminRequest } from "../../../lib/adminAuth";
+import { uploadToGarage } from "../../../lib/garageStorage";
 
 export const runtime = "nodejs";
 
@@ -66,16 +66,30 @@ export async function POST(request: Request) {
     );
   }
 
-  const uploadsDir = path.join(process.cwd(), "public", "uploads");
   const filename = safeFilename(file.name);
-  const diskPath = path.join(uploadsDir, filename);
+  const body = Buffer.from(await file.arrayBuffer());
 
-  await mkdir(uploadsDir, { recursive: true });
-  await writeFile(diskPath, Buffer.from(await file.arrayBuffer()));
+  let upload;
+
+  try {
+    upload = await uploadToGarage({
+      body,
+      contentType: file.type,
+      filename,
+    });
+  } catch (error) {
+    console.error("Garage upload failed", error);
+
+    return NextResponse.json(
+      { error: "Unable to upload image to storage." },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({
     ok: true,
-    url: `/uploads/${filename}`,
+    url: upload.url,
     name: filename,
+    key: upload.key,
   });
 }
