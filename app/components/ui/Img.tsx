@@ -22,7 +22,8 @@ export default function Img({
   const base: React.CSSProperties = {
     aspectRatio: r,
     width: "100%",
-    objectFit: "cover",
+    height: r === "auto" ? "auto" : undefined,
+    objectFit: r === "auto" ? "contain" : "cover",
     display: "block",
   };
 

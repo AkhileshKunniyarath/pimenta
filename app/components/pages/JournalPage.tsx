@@ -288,7 +288,7 @@ export default function JournalPage({
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }} className="responsive-grid-1col">
             {galleryImages.map((src, i) => (
               <div key={i} className="img-zoom" style={{ borderRadius: 4, overflow: "hidden" }}>
-                <Img src={src} alt={"photo " + (i + 1)} ratio={i % 3 === 0 ? "3/4" : "1/1"} />
+                <Img src={src} alt={"photo " + (i + 1)} ratio="auto" />
               </div>
             ))}
           </div>

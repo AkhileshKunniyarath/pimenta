@@ -70,7 +70,7 @@ function HeroEditorial({ onBook, setPage }: HeroLayoutProps) {
           </div>
         </div>
         <div className="sa-scale img-zoom">
-          <Img src={heroImg} alt="The Pimenta farm" ratio="3/4" />
+          <Img src={heroImg} alt="The Pimenta farm" ratio="auto" />
         </div>
         <div className="sa-right" style={{ paddingBottom: 40 }}>
           <div className="mono tracked" style={{ color: "var(--accent)", marginBottom: 10 }}>No. 01</div>
